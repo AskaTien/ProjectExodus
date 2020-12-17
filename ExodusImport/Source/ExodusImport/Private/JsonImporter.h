@@ -238,7 +238,7 @@ public:
 		}
 		else{
 			UE_LOG(JsonLog, Log, TEXT("Creating package %s"), *packageName);
-			package = CreatePackage(0, *packageName);
+			package = CreatePackage(*packageName);
 			UE_LOG(JsonLog, Log, TEXT("Package created"));
 		}
 

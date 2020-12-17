@@ -156,7 +156,7 @@ void SkeletalMeshBuildData::startWithMesh(const JsonMesh &jsonMesh){
 	hasColors = jsonMesh.colors.Num() != 0;
 }
 
-void SkeletalMeshBuildData::buildSkeletalMesh(FSkeletalMeshLODModel &lodModel, const FReferenceSkeleton &refSkeleton, const JsonMesh &jsonMesh){
+void SkeletalMeshBuildData::buildSkeletalMesh(FSkeletalMeshLODModel &lodModel, USkeletalMesh* skelMesh, const JsonMesh &jsonMesh){
 	IMeshUtilities::MeshBuildOptions buildOptions;
 	buildOptions.bComputeNormals = !hasNormals;
 	buildOptions.bComputeTangents = !hasTangents;//true;
@@ -168,8 +168,9 @@ void SkeletalMeshBuildData::buildSkeletalMesh(FSkeletalMeshLODModel &lodModel, c
 	*/
 
 	IMeshUtilities& meshUtils = FModuleManager::Get().LoadModuleChecked<IMeshUtilities>("MeshUtilities");
-	meshUtils.BuildSkeletalMesh(lodModel, 
-		refSkeleton, 
+	meshUtils.BuildSkeletalMesh(lodModel,
+		skelMesh->GetName(),
+		skelMesh->RefSkeleton,
 		meshInfluences, meshWedges, meshFaces, meshPoints, 
 		pointToOriginalMap, buildOptions, &buildWarnMessages, &buildWarnNames);
 
@@ -582,7 +583,7 @@ void SkeletalMeshBuilder::setupSkeletalMesh(USkeletalMesh *skelMesh, const JsonM
 
 	buildData.processWedgeData(jsonMesh);
 
-	buildData.buildSkeletalMesh(lodModel, refSkeleton, jsonMesh);
+	buildData.buildSkeletalMesh(lodModel, skelMesh, jsonMesh);
 
 	auto newSkelName = FString::Printf(TEXT("%s_%d"), *jsonSkel->name, jsonSkel->id);
 

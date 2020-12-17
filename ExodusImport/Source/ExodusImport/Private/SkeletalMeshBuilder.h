@@ -33,7 +33,7 @@ struct SkeletalMeshBuildData{
 	void processPositionsAndWeights(const JsonMesh &jsonMesh, const TMap<int, int> &meshToSkeletonBoneMap, StringArray &remapErrors);
 	void processWedgeData(const JsonMesh &jsonMesh);
 
-	void buildSkeletalMesh(FSkeletalMeshLODModel &lodModel, const FReferenceSkeleton &refSkeleton, const JsonMesh &jsonMesh);
+	void buildSkeletalMesh(FSkeletalMeshLODModel &lodModel, USkeletalMesh* skelMesh, const JsonMesh &jsonMesh);
 	void computeBoundingBox(USkeletalMesh *skelMesh, const JsonMesh &jsonMesh);
 
 	void processBlendShapes(USkeletalMesh *skelMesh, const JsonMesh &jsonMesh);

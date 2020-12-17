@@ -13,7 +13,7 @@ UPackage* UnrealUtilities::createAssetPackage(const FString &objectName, const F
 
 	auto fullPackagePath = buildPackagePath(objectName, desiredDir, importer);
 
-	auto newPackage = CreatePackage(0, *fullPackagePath);
+	auto newPackage = CreatePackage(*fullPackagePath);
 
 	if (assetCreator){
 		auto newAsset = assetCreator(newPackage);
@@ -108,7 +108,7 @@ UPackage* UnrealUtilities::createPackage(const FString &targetPath,
 		defaultPackageRoot);
 
 	UPackage *package = 0;
-	package = CreatePackage(0, *fullPackagePath);
+	package = CreatePackage(*fullPackagePath);
 	return package;
 }
 
@@ -166,7 +166,7 @@ UPackage* UnrealUtilities::createPackage(const FString &basePackageName,
 	}
 	else{
 		UE_LOG(JsonLog, Log, TEXT("Creating package %s"), *fullPackagePath);
-		package = CreatePackage(0, *fullPackagePath);
+		package = CreatePackage(*fullPackagePath);
 		UE_LOG(JsonLog, Log, TEXT("Package created"));
 	}
 
